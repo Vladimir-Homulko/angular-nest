@@ -1,16 +1,25 @@
+import { IsEmail, Length } from 'class-validator';
+import { ROLE } from './../../constants/role';
+
 export class UserDto {
 
-      name: string;
+  @Length(4, 100)
+  name: string;
 
-      surname: string;
+  @Length(4, 100)
+  surname: string;
 
-      login: string;
+  @Length(4, 100)
+  login: string;
+  
+  @IsEmail()
+  email: string;
 
-      email: string;
+  password: string;
 
-      password: string;
+  sex: string;
 
-      sex: string;
+  birthday: Date;
 
-      birthday: Date;
+  role: ROLE.USER;
 }
