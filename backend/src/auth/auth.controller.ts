@@ -8,8 +8,6 @@ export class AuthController {
 
   @Post()
   async auth(@Body() userLoginDto: UserLoginDto) {
-   // if (await this.authServise.validateUser(userLoginDto)) {
       return this.authServise.login(userLoginDto);
-//}
   }
 }

@@ -1,4 +1,4 @@
-import { IsEmail, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, Length } from 'class-validator';
 import { ROLE } from './../../constants/role';
 
 export class UserDto {
@@ -15,11 +15,15 @@ export class UserDto {
   @IsEmail()
   email: string;
 
+  @IsNotEmpty()
   password: string;
 
+  @IsNotEmpty()
   sex: string;
-
+  
+  @IsNotEmpty()
   birthday: Date;
-
+  
+  @IsNotEmpty()
   role: ROLE.USER;
 }
