@@ -1,6 +1,6 @@
-import { AppState } from './../../store/app.states';
+import { login } from './../../store/actions/auth.actions';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { User } from '../models/user-model';
 
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   user: User = new User(); 
 
   constructor(
-    private store: Store<AppState>
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    
+    if (this.form.valid) {
+      this.store.dispatch(login(this.form.value))
+    }
   }
 
   get email(): FormControl {

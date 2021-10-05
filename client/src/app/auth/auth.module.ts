@@ -12,7 +12,11 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule, MatOptionModule, MatOptionSelectionChange } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { Store, StoreModule } from '@ngrx/store';
+import { AuthReducer } from '../store/reducers/auth.reducers';
 
 
 @NgModule({
@@ -28,9 +32,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
+    MatOptionModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     FlexLayoutModule,
     MatToolbarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    StoreModule.forFeature('auth', AuthReducer)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

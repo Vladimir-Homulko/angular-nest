@@ -1,36 +1,60 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-      <mat-card class="box">
-        <mat-card-header>
-          <mat-card-title>Register</mat-card-title>
-        </mat-card-header>
-    
-        <form class="example-form">
-    
-          <mat-card-content>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username">
-            </mat-form-field>
-    
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Email">
-            </mat-form-field>
-    
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Password">
-            </mat-form-field>
-    
-            <!-- <mat-form-field class="example-full-width">
-              <mat-label>Choose a role...</mat-label>
-              <mat-select>
-                <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field> -->
-    
-          </mat-card-content>
-    
-          <button mat-stroked-button color="accent" class="btn-block">Register</button>
-    
-        </form>
-      </mat-card>
-    </div>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="25">
+    <mat-toolbar color="primary">Registration Page</mat-toolbar>
+    <form
+      fxLayout="streetch"
+      fxLayout="column"
+      class="registration-form"
+      [formGroup]="form"
+      (ngSubmit)="onRegistration()"
+    >
+      <mat-form-field>
+        <input matInput placeholder="Surname" formControlName="surname" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Login" formControlName="login" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Sex</mat-label>
+        <select matNativeControl formControlName="sex">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="birthday"
+          (dateChange)="dateChangeHandler($event.value)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button type="submit">Sing Up</button>
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active">
+        Have account? Sing In
+      </a>
+    </form>
+  </mat-card>
+</div>
