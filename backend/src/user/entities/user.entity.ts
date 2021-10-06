@@ -1,4 +1,4 @@
-import { ROLE } from './../../constants/role';
+import { ROLE } from '../../constants/role';
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 

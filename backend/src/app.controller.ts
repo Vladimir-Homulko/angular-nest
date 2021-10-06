@@ -1,4 +1,4 @@
-import { User } from './user/entities/user-entity';
+import { User } from './user/entities/user.entity';
 import { UserService } from './user/user.service';
 import { UserDto } from './user/dto/user-dto';
 import { Body, Controller, Post } from '@nestjs/common';

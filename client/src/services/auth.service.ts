@@ -1,5 +1,4 @@
 import { User } from 'src/app/auth/models/user-model';
-import { localStorageSync } from 'ngrx-store-localstorage';
 import { UserRegisterModel } from '../app/auth/models/user-register-model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,15 +18,15 @@ export class AuthService {
 
   singIn(email: string, password: string) {
     const url = `${this.BASE_URL}/auth`;
-    return this.http.post(url, {email, password});
+    return this.http.post(url, { email, password });
   }
 
   singUp(user: UserRegisterModel) {
     const url = `${this.BASE_URL}/registration`
-    return this.http.post(url, user);
+    return this.http.post(url, { ...user, role: 'user'});
   }
   
-  setUserInLocalStorage(user: User) {
-    localStorage.setItem('userData', JSON.stringify(user));
+  setTokenInLocalStorage(token: Object) {
+    localStorage.setItem('token', token.toString());
   }
 }

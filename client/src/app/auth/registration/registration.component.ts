@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UserRegisterModel } from '../models/user-register-model';
 import { Store } from '@ngrx/store';
+import { birthdayValidator } from 'src/app/utils/birthday-validator';
 
 @Component({
   selector: 'app-registration',
@@ -19,14 +20,14 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      name: new FormControl('', [Validators.minLength(4), Validators.maxLength(100)]),  
-      surname: new FormControl('', [Validators.minLength(4), Validators.maxLength(100)]),
-      login: new FormControl('', [Validators.minLength(4), Validators.maxLength(100)]),
-      email: new FormControl('', [Validators.email]),
-      password: new FormControl('', [Validators.minLength(4), Validators.maxLength(100)]),
-      confirmPassword: new FormControl('', [Validators.minLength(4), Validators.maxLength(100)]),
+      name: new FormControl('', [Validators.minLength(4), Validators.maxLength(100), Validators.required]),  
+      surname: new FormControl('', [Validators.minLength(4), Validators.maxLength(100), Validators.required]),
+      login: new FormControl('', [Validators.minLength(4), Validators.maxLength(100), Validators.required]),
+      email: new FormControl('', [Validators.email, Validators.required]),
+      password: new FormControl('', [Validators.minLength(4), Validators.maxLength(100), Validators.required]),
+      confirmPassword: new FormControl('', [Validators.minLength(4), Validators.maxLength(100), Validators.required]),
       sex: new FormControl(''),
-      birthday: new FormControl('')
+      birthday: new FormControl('', [birthdayValidator(), Validators.required])
     })
   }
 
@@ -35,13 +36,41 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegistration() {
-
-
     if (this.form.valid) {
-      //TODO: set user form value
-
-      this.store.dispatch(registration())
+      this.store.dispatch(registration({ user: this.user }))
     }
+  }
+
+  get name(): FormControl {
+    return this.form.get('name') as FormControl;
+  }
+
+  get surname(): FormControl {
+    return this.form.get('surname') as FormControl;
+  }
+
+  get login(): FormControl {
+    return this.form.get('login') as FormControl;
+  }
+  
+  get email(): FormControl {
+    return this.form.get('email') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.form.get('password') as FormControl;
+  }
+
+  get confirmPassword(): FormControl {
+    return this.form.get('confirmPassword') as FormControl;
+  }
+
+  get sex(): FormControl {
+    return this.form.get('sex') as FormControl;
+  }
+
+  get birthday(): FormControl {
+    return this.form.get('birthday') as FormControl;
   }
 
 }

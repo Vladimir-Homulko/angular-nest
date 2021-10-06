@@ -1,4 +1,4 @@
-import { login } from './../../store/actions/auth.actions';
+import { login, registrationSuccess } from './../../store/actions/auth.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';

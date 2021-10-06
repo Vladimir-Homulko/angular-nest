@@ -1,6 +1,6 @@
 import { UserLoginDto } from './dto/user-login-dto';
 import { UserService } from './../user/user.service';
-import { ForbiddenException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -11,8 +11,11 @@ export class AuthService {
   ) {}
 
   async login(userDto: UserLoginDto) {
+    const user = await this.userService.findByEmail(userDto.email);
+
     const payload = {
       email: userDto.email,
+      role: user.role
     };
 
     return {

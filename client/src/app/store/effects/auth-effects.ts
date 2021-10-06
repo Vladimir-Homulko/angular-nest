@@ -22,8 +22,8 @@ export class AuthEffects {
       ofType(login),
       exhaustMap(action => {
         return this.authService.singIn(action.email, action.password).pipe(
-          map(user => { 
-            return loginSuccess({ user })
+          map(token => { 
+            return loginSuccess({ token })
           }),
           catchError(error => of(loginFailture({ error })))
         )
@@ -36,7 +36,7 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(loginSuccess),
         tap(action => {
-          this.authService.setUserInLocalStorage(action.user);
+          this.authService.setTokenInLocalStorage(action.token);
           this.router.navigate(['/users']);
         })
       )

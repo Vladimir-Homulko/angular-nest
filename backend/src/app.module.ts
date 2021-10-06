@@ -1,4 +1,4 @@
-import { User } from './user/entities/user-entity';
+import { User } from './user/entities/user.entity';
 import { Module, ValidationPipe } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
