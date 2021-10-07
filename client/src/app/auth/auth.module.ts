@@ -39,6 +39,7 @@ import { AuthReducer } from '../store/reducers/auth.reducers';
     MatToolbarModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSnackBarModule,
     StoreModule.forFeature('auth', AuthReducer)
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

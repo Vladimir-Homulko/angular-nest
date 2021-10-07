@@ -8,7 +8,8 @@ export const getAllUsers = createAction(
 );
 
 export const getAllUsersSuccess = createAction(
-      UserActionTypes.CREATE_USER_SUCCESS
+      UserActionTypes.CREATE_USER_SUCCESS,
+      props<{ users: [] }>()
 );
 
 export const getAllUsersFailed = createAction(
@@ -40,3 +41,11 @@ export const updateUserSuccess = createAction(
 export const updateUserFailed = createAction(
       UserActionTypes.UPDATE_USER_FAILED,
 );
+
+export const getRole = createAction(
+      UserActionTypes.GET_ROLE
+);
+
+export const getRoleSuccess = createAction(
+      UserActionTypes.GET_ROLE_SUCCESS
+)

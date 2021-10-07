@@ -1,33 +1,38 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { AuthActionTypes } from './../actions/auth.actions.types';
-import { User } from "src/app/auth/models/user-model";
 import { loginSuccess, registrationFailed, registrationSuccess } from '../actions/auth.actions';
 
-export interface State {
+export interface AuthData {
+    token: string,
+    role: string,
+    iat: number,
+    exp: number
+}
+
+export interface AuthState {
       
       isAuthenticated: boolean;
 
-      token: Object | null;
+      authData: AuthData | null;
 
       errorMessage: string | null;
 
       successMessage: string | null; 
 }
 
-export const initialState: State = {
+export const initialState: AuthState = {
       isAuthenticated: false,
-      token: null,
+      authData: null,
       errorMessage: null,
       successMessage: null
 };
 
 const _authReducer = createReducer(
     initialState,
-    on(loginSuccess, (state, action) => {
+    on(loginSuccess, (state, {authData}) => {
         return {
             ...state,
             isAuthenticated: true,
-            token: action.token
+            authData
         }
     }),
     on(registrationSuccess, (state, action) => {
@@ -39,11 +44,11 @@ const _authReducer = createReducer(
     on(registrationFailed, (state, action) => {
         return {
             ...state,
-            errorMessage: 'Registration failed'
+            errorMessage: 'Registration failed!'
         }
     })
 ) 
 
-export function AuthReducer(state: State, action: Action) {
+export function AuthReducer(state: AuthState, action: Action) {
     return _authReducer(state, action);
 }

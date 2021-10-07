@@ -2,6 +2,7 @@ import { UserRegisterModel } from './../../auth/models/user-register-model';
 import { User } from 'src/app/auth/models/user-model';
 import { AuthActionTypes } from './auth.actions.types';
 import { createAction, props, Action } from "@ngrx/store";
+import { AuthData } from '../reducers/auth.reducers';
 
 export const login = createAction(
       AuthActionTypes.LOGIN,
@@ -10,7 +11,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
       AuthActionTypes.LOGIN_SUCCESS,
-      props<{ token: Object }>()
+      props<{ authData: AuthData }>()
 )
 
 export const loginFailture = createAction(

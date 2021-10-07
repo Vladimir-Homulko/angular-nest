@@ -7,5 +7,7 @@ export enum UserActionTypes {
       CREATE_USER_FAILED = '[User] create user failed',
       UPDATE_USER = '[User] update user',
       UPDATE_USER_SUCCESS = '[User] update user success',
-      UPDATE_USER_FAILED = '[User] update user failed'
+      UPDATE_USER_FAILED = '[User] update user failed',
+      GET_ROLE = '[User] get role',
+      GET_ROLE_SUCCESS = '[User] get role success'
 }

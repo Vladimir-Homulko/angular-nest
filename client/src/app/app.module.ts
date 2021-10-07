@@ -16,7 +16,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 import { AuthenticationGuard } from './guards/auth-guard';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -32,6 +36,12 @@ import { AuthenticationGuard } from './guards/auth-guard';
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AuthEffects]),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:8080']
+      }
+    })
   ],
   providers: [
     AuthService, 
