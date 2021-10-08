@@ -15,14 +15,21 @@ export class UserService {
     ) { }
 
   getAllUsers() {
-    debugger;
     return this.http.get(this.BASE_URL);
   }
 
   getRole() {
     const token = localStorage.getItem('token');
-    const tokenData = this.jwtService.decodeToken(token!);
+    const tokenData = this.jwtService.decodeToken(token!); 
     return tokenData.role;
+  }
+
+  getAllUsersWhereSexMale() {
+    return this.http.get(`${this.BASE_URL}/male`);
+  }
+
+  getAllUsersWhereSexFemale() {
+    return this.http.get(`${this.BASE_URL}/female`);
   }
 
 }

@@ -1,10 +1,9 @@
 import { UserService } from 'src/services/user.service';
-import { getRole, getRoleSuccess, getAllUsers, getAllUsersSuccess, getAllUsersFailed } from './../actions/user.actions';
-import { tap, mergeMap, map } from 'rxjs/operators';
+import { getAllUsers, getAllUsersSuccess, getAllUsersMale, getAllUsersMaleSuccess, getAllUsersFemaleSuccess } from './../actions/user.actions';
+import { mergeMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AuthService } from 'src/services/auth.service';
 
 
 @Injectable()
@@ -24,13 +23,44 @@ export class UserEffects {
         mergeMap(() => {
           return this.userServise.getAllUsers().pipe(
             map((users: any) => {
-              return getAllUsersSuccess({ users });
+              const role = this.userServise.getRole()
+              return getAllUsersSuccess({ users, role });
+            })
+          )
+        }),
+      )
+    }
+  )
+
+  $loadUsersWhereSexMale = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(getAllUsersMale),
+        mergeMap(() => {
+          return this.userServise.getAllUsersWhereSexMale().pipe(
+            map((users: any) => {
+              return getAllUsersMaleSuccess(users)
             })
           )
         })
       )
     }
   )
-  
+
+  $loadUsersWhereSexFemale = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(getAllUsersMale),
+        mergeMap(() => {
+          return this.userServise.getAllUsersWhereSexFemale().pipe(
+            map((users: any) => {
+              return getAllUsersFemaleSuccess(users)
+            })
+          )
+        })
+      )
+    }
+  )
+
 
 }

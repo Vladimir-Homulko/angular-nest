@@ -1,3 +1,4 @@
+import { getAllUsersMale, getAllUsersFemale } from './../../store/actions/user.actions';
 import { Router } from '@angular/router';
 import { login } from './../../store/actions/auth.actions';
 import { AppState } from './../../store/app.states';
@@ -25,7 +26,7 @@ export interface IUser {
 })
 export class UserListComponent implements OnInit {
 
-  // role?: any
+  role?: any
   users?: IUser[] | null;
   displayedColumns: string[] = ['ID', 'NAME', 'SURNAME', 'LOGIN', 'EMAIL', 'SEX', 'BIRTHDAY'];
 
@@ -33,16 +34,30 @@ export class UserListComponent implements OnInit {
     private store$: Store<AppState>,
     private router: Router
   ) { }
-  
+
   ngOnInit(): void {
     this.store$.dispatch(getAllUsers());
     this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
-    
-    // this.store$.select(AuthSelectors.selectRole).subscribe(role => this.role = role);
+    this.store$.select(UserSelectors.getRoleSelect).subscribe(role => this.role = role);
   }
 
-  getUsers() {
-    
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    switch (filterValue) {
+      case 'male':
+        this.store$.dispatch(getAllUsersMale());
+        this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
+        break;
+      case 'female':
+        this.store$.dispatch(getAllUsersFemale());
+        this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
+        break;
+      default:
+        // this.store$.dispatch(getAllUsers());
+        // this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
+        break;
+    }
   }
 
   logout() {

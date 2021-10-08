@@ -8,6 +8,8 @@ export enum UserActionTypes {
       UPDATE_USER = '[User] update user',
       UPDATE_USER_SUCCESS = '[User] update user success',
       UPDATE_USER_FAILED = '[User] update user failed',
-      GET_ROLE = '[User] get role',
-      GET_ROLE_SUCCESS = '[User] get role success'
+      FILTER_MALE = '[User] filter male',
+      FILTER_MALE_SUCCESS = '[User] filter male success',
+      FILTER_FEMALE = '[User] filter female',
+      FILTER_FEMALE_SUCCESS = '[User] filter female success',
 }

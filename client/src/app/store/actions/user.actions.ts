@@ -8,12 +8,12 @@ export const getAllUsers = createAction(
 );
 
 export const getAllUsersSuccess = createAction(
-      UserActionTypes.CREATE_USER_SUCCESS,
-      props<{ users: [] }>()
+      UserActionTypes.GET_ALL_SUCCESS,
+      props<{ users: [], role: string }>()
 );
 
 export const getAllUsersFailed = createAction(
-      UserActionTypes.CREATE_USER_FAILED
+      UserActionTypes.GET_ALL_FAILED
 );
 
 export const createUser = createAction(
@@ -42,10 +42,20 @@ export const updateUserFailed = createAction(
       UserActionTypes.UPDATE_USER_FAILED,
 );
 
-export const getRole = createAction(
-      UserActionTypes.GET_ROLE
+export const getAllUsersMale = createAction(
+      UserActionTypes.FILTER_MALE
 );
 
-export const getRoleSuccess = createAction(
-      UserActionTypes.GET_ROLE_SUCCESS
-)
+export const getAllUsersMaleSuccess = createAction(
+      UserActionTypes.FILTER_MALE_SUCCESS,
+      props<{ users: [] }>()
+);
+
+export const getAllUsersFemale = createAction(
+      UserActionTypes.FILTER_FEMALE
+);
+
+export const getAllUsersFemaleSuccess = createAction(
+      UserActionTypes.FILTER_FEMALE_SUCCESS,
+      props<{ users: [] }>()
+);

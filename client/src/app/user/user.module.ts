@@ -1,3 +1,4 @@
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
@@ -10,11 +11,16 @@ import { UsersReducer } from '../store/reducers/user.reducers';
 import { AuthInterceptor } from '../http-interceptors/auth-interceptor';
 import {MatTableModule} from '@angular/material/table';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatInputModule } from '@angular/material/input';
+import { UserCreateUpdateComponent } from './user-create-update/user-create-update.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 
 @NgModule({
   declarations: [
-    UserListComponent
+    UserListComponent,
+    UserCreateUpdateComponent,
+    UserDetailComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +29,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     MatTableModule,
     MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
     FlexLayoutModule
   ],
   providers: [

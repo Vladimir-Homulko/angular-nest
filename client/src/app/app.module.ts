@@ -1,3 +1,4 @@
+import { UserEffects } from './store/effects/user-effects';
 import { AuthEffects } from './store/effects/auth-effects';
 import { AuthService} from 'src/services/auth.service';
 import { UserService } from 'src/services/user.service';
@@ -35,7 +36,7 @@ export function tokenGetter() {
     HttpClientModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, UserEffects]),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

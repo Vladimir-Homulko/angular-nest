@@ -14,7 +14,6 @@ export class AuthService {
     const user = await this.userService.findByEmail(userDto.email);
 
     const payload = {
-      email: userDto.email,
       role: user.role
     };
 

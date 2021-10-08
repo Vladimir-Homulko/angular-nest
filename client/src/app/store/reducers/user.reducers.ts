@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { getAllUsers, getAllUsersSuccess } from './../actions/user.actions';
+import { getAllUsersSuccess, getAllUsersMaleSuccess, getAllUsersFemaleSuccess } from './../actions/user.actions';
 import { createReducer, on } from '@ngrx/store';
 
 export interface UsersState {
@@ -28,9 +28,22 @@ const _userReducer = createReducer(
     on(getAllUsersSuccess, (state, action) => {
         return {
             ...state,
+            users: action.users,
+            role: action.role
+        }
+    }),
+    on(getAllUsersMaleSuccess, (state, action) => {
+        return {
+            ...state,
             users: action.users
         }
-    })
+    }),
+    on(getAllUsersFemaleSuccess, (state, action) => {
+        return {
+            ...state,
+            users: action.users
+        }
+    }),
 );
 
 export function UsersReducer(state: UsersState, action: Action) {
