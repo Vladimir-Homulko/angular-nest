@@ -45,17 +45,6 @@
         Incorrect password
       </mat-error>
       <mat-form-field>
-        <input
-          matInput
-          type="password"
-          placeholder="Confirm Password"
-          formControlName="confirmPassword"
-        />
-      </mat-form-field>
-      <mat-error *ngIf="confirmPassword.touched && confirmPassword.hasError('confirmPassword')">
-        Passwords mismatch
-      </mat-error>
-      <mat-form-field>
         <mat-label>Sex</mat-label>
         <select matNativeControl formControlName="sex" [(ngModel)]="user.sex">
           <option value="male">Male</option>

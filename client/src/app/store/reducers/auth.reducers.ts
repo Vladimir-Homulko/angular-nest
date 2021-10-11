@@ -1,3 +1,4 @@
+import { resetMessages } from './../actions/user.actions';
 import { Action, createReducer, on } from '@ngrx/store';
 import { loginSuccess, registrationFailed, registrationSuccess } from '../actions/auth.actions';
 
@@ -45,6 +46,13 @@ const _authReducer = createReducer(
         return {
             ...state,
             errorMessage: 'Registration failed!'
+        }
+    }),
+    on(resetMessages, (state, action) => {
+        return {
+            ...state,
+            successMessage: null,
+            errorMessage: null
         }
     })
 ) 

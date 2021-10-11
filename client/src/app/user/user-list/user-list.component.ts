@@ -29,6 +29,7 @@ export class UserListComponent implements OnInit {
 
   role?: any
   users?: IUser[] | null;
+  dataSource? = this.users;
   displayedColumns: string[] = ['ID', 'NAME', 'SURNAME', 'LOGIN', 'EMAIL', 'SEX', 'BIRTHDAY'];
   errorMessage$?: string | null;
   successMessage$?: string | null;
@@ -79,6 +80,19 @@ export class UserListComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/']);
+  }
+
+  onTableScroll(e: any) {
+    const tableViewHeight = e.target.offsetHeight 
+    const tableScrollHeight = e.target.scrollHeight 
+    const scrollLocation = e.target.scrollTop; 
+    
+    
+    const buffer = 200;
+    const limit = tableScrollHeight - tableViewHeight - buffer;    
+    if (scrollLocation > limit) {
+      this.store$.dispatch(getAllUsers());
+    }
   }
 
 }

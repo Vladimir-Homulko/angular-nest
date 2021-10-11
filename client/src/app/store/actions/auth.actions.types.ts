@@ -4,5 +4,6 @@ export enum AuthActionTypes {
       LOGIN_FAILED = '[Auth] Login Failed',
       REGISTRATION = '[Auth] Registration',
       REGISTRATION_SUCCES = '[Auth] Registration Succes',
-      REGISTRATION_FAILED = '[Auth] Registration Failed'
+      REGISTRATION_FAILED = '[Auth] Registration Failed',
+      RESET_MESSAGES = '[Auth] Reset Messages'
 }

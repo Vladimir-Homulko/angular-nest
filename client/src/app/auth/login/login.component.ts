@@ -1,3 +1,4 @@
+import { resetMessages } from './../../store/actions/user.actions';
 import { AuthSelectors } from './../../store/selectors/auth.selectors';
 import { map, Observable } from 'rxjs';
 import { login, registrationSuccess } from './../../store/actions/auth.actions';
@@ -36,10 +37,12 @@ export class LoginComponent implements OnInit {
 
     if (this.successMessage$) {
       this.snackBar.open(this.successMessage$, 'close');
+      this.store$.dispatch(resetMessages())
     }
 
     if (this.errorMessage$) {
       this.snackBar.open(this.errorMessage$, 'close');
+      this.store$.dispatch(resetMessages())
     }
   }
 

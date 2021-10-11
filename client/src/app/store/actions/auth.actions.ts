@@ -32,3 +32,7 @@ export const registrationFailed = createAction(
       AuthActionTypes.REGISTRATION_FAILED,
       props<{ error: string }>()
 )
+
+export const resetMessages = createAction(
+      AuthActionTypes.RESET_MESSAGES
+)
