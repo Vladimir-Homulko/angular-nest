@@ -12,4 +12,5 @@ export enum UserActionTypes {
       FILTER_MALE_SUCCESS = '[User] filter male success',
       FILTER_FEMALE = '[User] filter female',
       FILTER_FEMALE_SUCCESS = '[User] filter female success',
+      RESET_MESSAGES = '[User] reset messages' 
 }

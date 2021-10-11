@@ -16,4 +16,14 @@ export namespace UserSelectors {
         userStateSelect,
         (state: UsersState) => state.role
     )
+
+    export const getSuccessMessage = createSelector(
+        userStateSelect,
+        (state: UsersState) => state.successMessage
+    )
+
+    export const getErrorMessage = createSelector(
+        userStateSelect,
+        (state: UsersState) => state.errorMessage
+    )
 }

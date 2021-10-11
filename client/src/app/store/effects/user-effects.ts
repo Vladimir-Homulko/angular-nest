@@ -1,5 +1,6 @@
+import { UserModel } from 'src/app/model/user.model';
 import { UserService } from 'src/services/user.service';
-import { getAllUsers, getAllUsersSuccess, getAllUsersMale, getAllUsersMaleSuccess, getAllUsersFemaleSuccess } from './../actions/user.actions';
+import { getAllUsers, getAllUsersSuccess, getAllUsersMale, getAllUsersMaleSuccess, getAllUsersFemaleSuccess, updateUser, updateUserSuccess, createUser, createUserSuccess, getAllUsersFemale } from './../actions/user.actions';
 import { mergeMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -39,7 +40,8 @@ export class UserEffects {
         mergeMap(() => {
           return this.userServise.getAllUsersWhereSexMale().pipe(
             map((users: any) => {
-              return getAllUsersMaleSuccess(users)
+              const role = this.userServise.getRole();
+              return getAllUsersMaleSuccess({ users, role })
             })
           )
         })
@@ -50,11 +52,12 @@ export class UserEffects {
   $loadUsersWhereSexFemale = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(getAllUsersMale),
+        ofType(getAllUsersFemale),
         mergeMap(() => {
           return this.userServise.getAllUsersWhereSexFemale().pipe(
             map((users: any) => {
-              return getAllUsersFemaleSuccess(users)
+              const role = this.userServise.getRole()
+              return getAllUsersFemaleSuccess({ users, role })
             })
           )
         })
@@ -62,5 +65,36 @@ export class UserEffects {
     }
   )
 
+  $updateUser = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(updateUser),
+        mergeMap((action) => {
+          return this.userServise.updateUser(action.id, action.user).pipe(
+            map((user: any) => {
+              this.router.navigate(['/users']);
+              return updateUserSuccess(user)
+            })
+          )
+        })
+      )
+    }
+  )
+
+  $createUser = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(createUser),
+        mergeMap((action) => {
+          return this.userServise.createUser(action.user).pipe(
+            map((user: any) => {
+              this.router.navigate(['/users'])
+              return createUserSuccess()
+            })
+          )
+        })
+      )
+    }
+  )
 
 }

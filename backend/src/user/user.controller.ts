@@ -1,3 +1,4 @@
+import { UserUpdateDto } from './dto/user.update-dto';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user-dto';
 import { Body, Controller, Param, Post, Get, UseGuards, Put } from '@nestjs/common';
@@ -18,7 +19,7 @@ export class UserController {
 	}
 
 	@Put(':id')
-	async updateUser(@Param('id') id: number, @Body() userDto: UserDto) {
+	async updateUser(@Param('id') id: number, @Body() userDto: UserUpdateDto) {
 		await this.userService.update(id, userDto);
 	}
 
@@ -27,12 +28,17 @@ export class UserController {
 		return this.userService.findAll();
 	}
 
-	@Get(':sex')
+	@Get('filter/:sex')
 	filterBySex(@Param('sex') sex: string) {
 		if (sex === 'male') {
 			return this.userService.findAllWhereSexMale();
 		} else {
 			return this.userService.findAllWhereSexFemale();
 		}
+	}
+
+	@Get(':id')
+	getUserById(@Param('id') id: number) {
+		return this.userService.findById(id);
 	}
 }

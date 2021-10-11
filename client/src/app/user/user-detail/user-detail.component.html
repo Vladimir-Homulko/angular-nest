@@ -3,32 +3,38 @@
     <mat-toolbar color="primary">User Details Page</mat-toolbar>
     <mat-form-field>
       <mat-label>Id</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.id" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.name" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Surname</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.surname" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Login</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.login" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.email" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Sex</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.sex" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Birthday</mat-label>
-      <input matInput disabled value="" />
+      <input matInput disabled [value]="user.birthday | date: 'longDate'" />
     </mat-form-field>
-    <button mat-raised-button color="primary">Update</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="redirectToUpdate(user.id)"
+    >
+      Update
+    </button>
   </mat-card>
 </div>

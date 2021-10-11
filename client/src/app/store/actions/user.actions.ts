@@ -2,6 +2,7 @@ import { UserUpdateModel } from './../models/update-user.model';
 import { UserCreateModel } from './../models/create-user.model';
 import { UserActionTypes } from './user.actions.types';
 import { createAction, props } from "@ngrx/store";
+import { UserModel } from 'src/app/model/user.model';
 
 export const getAllUsers = createAction(
       UserActionTypes.GET_ALL
@@ -18,7 +19,7 @@ export const getAllUsersFailed = createAction(
 
 export const createUser = createAction(
       UserActionTypes.CREATE_USER,
-      props<{user: UserCreateModel}>()
+      props<{user: UserModel}>()
 );
 
 export const createUserSuccess = createAction(
@@ -31,11 +32,12 @@ export const createUserFailed = createAction(
 
 export const updateUser = createAction(
       UserActionTypes.UPDATE_USER,
-      props<{ user: UserUpdateModel }>()
+      props<{ id: string, user: UserModel }>()
 );
 
 export const updateUserSuccess = createAction(
       UserActionTypes.UPDATE_USER_SUCCESS,
+      props<{ user: UserModel }>()
 );
 
 export const updateUserFailed = createAction(
@@ -48,7 +50,7 @@ export const getAllUsersMale = createAction(
 
 export const getAllUsersMaleSuccess = createAction(
       UserActionTypes.FILTER_MALE_SUCCESS,
-      props<{ users: [] }>()
+      props<{ users: [], role: string }>()
 );
 
 export const getAllUsersFemale = createAction(
@@ -57,5 +59,9 @@ export const getAllUsersFemale = createAction(
 
 export const getAllUsersFemaleSuccess = createAction(
       UserActionTypes.FILTER_FEMALE_SUCCESS,
-      props<{ users: [] }>()
+      props<{ users: [], role: string }>()
 );
+
+export const resetMessages = createAction(
+      UserActionTypes.RESET_MESSAGES
+)

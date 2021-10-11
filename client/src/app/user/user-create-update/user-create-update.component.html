@@ -1,1 +1,96 @@
-<p>user-create-update works!</p>
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+  <mat-card fxFlex="25">
+    <mat-toolbar color="primary">
+      {{ isCreatePage() ? "Create" : "Update" }} Page
+    </mat-toolbar>
+    <form
+      fxLayout="streetch"
+      fxLayout="column"
+      class="form"
+      [formGroup]="form"
+      (ngSubmit)="isCreatePage() ? onCreate() : onUpdate()"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Name"
+          formControlName="name"
+          [(ngModel)]="user.name"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="name.touched && name.hasError('name')">
+        Incorrect name
+      </mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Surname"
+          formControlName="surname"
+          [(ngModel)]="user.surname"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="surname.touched && surname.hasError('surname')">
+        Incorrect surname
+      </mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Login"
+          formControlName="login"
+          [(ngModel)]="user.login"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="login.touched && login.hasError('login')">
+        Incorrect login
+      </mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Email"
+          formControlName="email"
+          [(ngModel)]="user.email"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="email.touched && email.hasError('email')">
+        Incorrect email
+      </mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          [(ngModel)]="user.password"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="password.touched && password.hasError('password')">
+        Incorrect password
+      </mat-error>
+      <mat-form-field>
+        <mat-label>Sex</mat-label>
+        <select matNativeControl formControlName="sex" [(ngModel)]="user.sex">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="birthday"
+          (dateChange)="dateChangeHandler($event.value)"
+          [(ngModel)]="user.birthday"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-error *ngIf="birthday.touched && birthday.hasError('birthday')">
+        Birthday cannot be in the future
+      </mat-error>
+      <button mat-raised-button type="submit">
+        {{ isCreatePage() ? "Create" : "Update" }}
+      </button>
+    </form>
+  </mat-card>
+</div>

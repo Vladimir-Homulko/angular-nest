@@ -1,4 +1,5 @@
-import { getAllUsersMale, getAllUsersFemale } from './../../store/actions/user.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { getAllUsersMale, getAllUsersFemale, resetMessages } from './../../store/actions/user.actions';
 import { Router } from '@angular/router';
 import { login } from './../../store/actions/auth.actions';
 import { AppState } from './../../store/app.states';
@@ -29,16 +30,31 @@ export class UserListComponent implements OnInit {
   role?: any
   users?: IUser[] | null;
   displayedColumns: string[] = ['ID', 'NAME', 'SURNAME', 'LOGIN', 'EMAIL', 'SEX', 'BIRTHDAY'];
+  errorMessage$?: string | null;
+  successMessage$?: string | null;
 
   constructor(
     private store$: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
     this.store$.dispatch(getAllUsers());
     this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
     this.store$.select(UserSelectors.getRoleSelect).subscribe(role => this.role = role);
+    this.store$.select(UserSelectors.getSuccessMessage).subscribe(message => this.successMessage$ = message);
+    this.store$.select(UserSelectors.getErrorMessage).subscribe(message => this.errorMessage$ = message);
+
+    if (this.successMessage$) {
+      this.snackBar.open(this.successMessage$, 'close');
+      this.store$.dispatch(resetMessages());
+    }
+
+    if (this.errorMessage$) {
+      this.snackBar.open(this.errorMessage$, 'close');
+      this.store$.dispatch(resetMessages());
+    }
   }
 
   applyFilter(event: Event) {
@@ -54,8 +70,8 @@ export class UserListComponent implements OnInit {
         this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
         break;
       default:
-        // this.store$.dispatch(getAllUsers());
-        // this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
+        this.store$.dispatch(getAllUsers());
+        this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
         break;
     }
   }

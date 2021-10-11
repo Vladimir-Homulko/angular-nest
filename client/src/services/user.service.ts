@@ -1,3 +1,4 @@
+import { UserModel } from 'src/app/model/user.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -25,11 +26,23 @@ export class UserService {
   }
 
   getAllUsersWhereSexMale() {
-    return this.http.get(`${this.BASE_URL}/male`);
+    return this.http.get(`${this.BASE_URL}/filter/male`);
   }
 
   getAllUsersWhereSexFemale() {
-    return this.http.get(`${this.BASE_URL}/female`);
+    return this.http.get(`${this.BASE_URL}/filter/female`);
+  }
+
+  getUserById(id: string) {
+    return this.http.get(`${this.BASE_URL}/${id}`)
+  }
+
+  createUser(user: UserModel) {
+    return this.http.post(this.BASE_URL, user);
+  }
+
+  updateUser(id: string, user: UserModel) {   
+    return this.http.put(`${this.BASE_URL}/${id}`, user);
   }
 
 }

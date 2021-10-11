@@ -1,0 +1,12 @@
+.main-div mat-card {
+  padding: 0px;
+}
+
+.form {
+  padding: 20px;
+}
+
+.form a {
+  margin-top: 10px;
+  text-decoration: none;
+}

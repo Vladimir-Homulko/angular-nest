@@ -1,8 +1,7 @@
-import { Optional } from '@nestjs/common';
-import { IsEmail, IsNotEmpty, Length } from 'class-validator';
+import { IsDefined, IsEmail, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 import { ROLE } from './../../constants/role';
 
-export class UserDto {
+export class UserUpdateDto {
 
   @Length(4, 100)
   name: string;
@@ -16,7 +15,7 @@ export class UserDto {
   @IsEmail()
   email: string;
 
-  @Length(4, 100)
+  @IsOptional()
   password: string;
 
   @IsNotEmpty()
@@ -25,6 +24,6 @@ export class UserDto {
   @IsNotEmpty()
   birthday: Date;
   
-  @Optional()
+  @IsNotEmpty()
   role: ROLE.USER;
 }

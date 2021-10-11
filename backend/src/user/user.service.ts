@@ -1,3 +1,4 @@
+import { UserUpdateDto } from './dto/user.update-dto';
 import { UserDto } from './dto/user-dto';
 import { User } from './entities/user.entity';
 import { Injectable } from '@nestjs/common';
@@ -15,7 +16,7 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
-  async update(id: number, userDto: UserDto) {
+  async update(id: number, userDto: UserUpdateDto) {
 
     const user = await this.findById(id);
 
@@ -25,18 +26,20 @@ export class UserService {
     user.email = userDto.email;
     user.sex = userDto.sex;
     user.birthday = userDto.birthday;
-
-    if (userDto.password !== '') {
+    
+    if (userDto.password && userDto.password !== '') {
       user.password = userDto.password; 
+    } else {
+      delete user.password;
     }
-
-    console.log(user.password)
-
+    
     return await this.userRepository.update(id, user);
   }
 
-  findById(id: number) {
-    return this.userRepository.findOneOrFail({ id });
+  async findById(id: number) {
+    const user = await this.userRepository.findOneOrFail({ id });
+    delete user.password;
+    return user;
   }
 
   findByEmail(email: string) {
