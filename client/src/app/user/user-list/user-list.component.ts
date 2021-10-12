@@ -5,8 +5,6 @@ import { login } from './../../store/actions/auth.actions';
 import { AppState } from './../../store/app.states';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { AuthSelectors } from 'src/app/store/selectors/auth.selectors';
 import { getAllUsers } from 'src/app/store/actions/user.actions';
 import { UserSelectors } from 'src/app/store/selectors/user.selectors';
 
@@ -23,26 +21,29 @@ export interface IUser {
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.css']
+  styleUrls: ['./user-list.component.css'],
 })
 export class UserListComponent implements OnInit {
 
   role?: any
   users?: IUser[] | null;
-  dataSource? = this.users;
+  dataSource?: IUser[];
   displayedColumns: string[] = ['ID', 'NAME', 'SURNAME', 'LOGIN', 'EMAIL', 'SEX', 'BIRTHDAY'];
   errorMessage$?: string | null;
   successMessage$?: string | null;
 
+  lastLoadedUserCount: number = 0;
+
   constructor(
     private store$: Store<AppState>,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
     this.store$.dispatch(getAllUsers());
-    this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users);
+    this.store$.select(UserSelectors.getUsersSelect).subscribe(users => this.users = users?.slice(0, 15));
+    this.lastLoadedUserCount = this.lastLoadedUserCount + 15;
     this.store$.select(UserSelectors.getRoleSelect).subscribe(role => this.role = role);
     this.store$.select(UserSelectors.getSuccessMessage).subscribe(message => this.successMessage$ = message);
     this.store$.select(UserSelectors.getErrorMessage).subscribe(message => this.errorMessage$ = message);
@@ -56,6 +57,7 @@ export class UserListComponent implements OnInit {
       this.snackBar.open(this.errorMessage$, 'close');
       this.store$.dispatch(resetMessages());
     }
+    
   }
 
   applyFilter(event: Event) {
@@ -77,22 +79,16 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  onScroll(e: any) {
+    if (e.target.offsetHeight + e.target.scrollTop >= e.target.scrollHeight) {
+      this.store$.select(UserSelectors.getUsersSelect)
+        .subscribe(users => this.users = users?.slice(0, this.lastLoadedUserCount));
+      this.lastLoadedUserCount = this.lastLoadedUserCount + 15;
+    }
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/']);
   }
-
-  onTableScroll(e: any) {
-    const tableViewHeight = e.target.offsetHeight 
-    const tableScrollHeight = e.target.scrollHeight 
-    const scrollLocation = e.target.scrollTop; 
-    
-    
-    const buffer = 200;
-    const limit = tableScrollHeight - tableViewHeight - buffer;    
-    if (scrollLocation > limit) {
-      this.store$.dispatch(getAllUsers());
-    }
-  }
-
 }

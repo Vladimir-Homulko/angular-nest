@@ -1,7 +1,27 @@
+mat-toolbar button {
+  margin-left: 50px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
 table {
   width: 100%;
 }
 
-.row {
-    cursor: pointer;
+.scroll {
+  overflow-x: scroll;
+  height: 600px;
 }
+
+.row {
+  cursor: pointer;
+}
+
+.footer {
+  width: 100%;
+  height: 262px;
+  background-color: #3f51b5;
+}
+

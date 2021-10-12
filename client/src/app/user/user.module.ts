@@ -19,13 +19,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import {MatListModule} from '@angular/material/list';
 
 
 @NgModule({
   declarations: [
     UserListComponent,
     UserCreateUpdateComponent,
-    UserDetailComponent
+    UserDetailComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    NgxSpinnerModule,
+    MatListModule,
   ],
   providers: [
     {
